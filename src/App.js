@@ -20,6 +20,11 @@ function App() {
         load().then(() => console.log('FFMPEG-WASM LOADED'));
     }, []);
 
+    const convertAndGenerateFrames = async () => {
+        await convertToMP4();
+        await generateFrames();
+    }
+
     const convertToMP4 = async () => {
         // Write the file to memory
         ffmpeg.FS('writeFile', 'test.mp4', await fetchFile(video));
@@ -74,8 +79,9 @@ function App() {
 
                 <h3>Result</h3>
 
-                <button onClick={convertToMP4}>Convert</button>
-                <button onClick={generateFrames}>Generate Frames</button>
+                {/*<button onClick={convertToMP4}>Convert</button>*/}
+                {/*<button onClick={generateFrames}>Generate Frames</button>*/}
+                <button onClick={convertAndGenerateFrames}>Convert & Generate Frames</button>
 
                 {output && <video
                     controls
@@ -84,13 +90,15 @@ function App() {
 
                 </video>}
 
-                {frames && Array.isArray(frames) && frames.map((url, index) => <img
-                    width={'250'}
-                    key={index}
-                    src={url}
-                    alt={'Frame' + index}
-                >
-                </img>)}
+                <div className={'frameContainer'}>
+                    {frames && Array.isArray(frames) && frames.map((url, index) => <img
+                        width={'250'}
+                        key={index}
+                        src={url}
+                        alt={'Frame' + index}
+                    >
+                    </img>)}
+                </div>
 
             </div>
         </>
