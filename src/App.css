@@ -1,7 +1,22 @@
 .App {
   text-align: center;
+  padding-top: 10vh;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
 }
 
+video, img {
+  margin: 20px 0;
+}
+.App code {
+  background: #FFF3;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.App p {
+  margin: 0.4rem;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
