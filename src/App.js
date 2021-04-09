@@ -7,9 +7,9 @@ const ffmpeg = createFFmpeg({log: true});
 
 function App() {
     const [ready, setReady] = useState(false);
-    const [video, setVideo] = useState();
-    const [output, setOutput] = useState();
-    const [frames, setFrames] = useState();
+    const [video, setVideo] = useState(null);
+    const [output, setOutput] = useState(null);
+    const [frames, setFrames] = useState(null);
 
     const load = async () => {
         await ffmpeg.load();
@@ -21,11 +21,14 @@ function App() {
     }, []);
 
     const convertAndGenerateFrames = async () => {
+        setOutput(null);
+        setFrames(null);
         await convertToMP4();
         await generateFrames();
     }
 
     const convertToMP4 = async () => {
+        setOutput(null);
         // Write the file to memory
         ffmpeg.FS('writeFile', 'test.mp4', await fetchFile(video));
 
@@ -41,6 +44,7 @@ function App() {
     };
 
     const generateFrames = async () => {
+        setFrames(null);
         // Write the file to memory
         ffmpeg.FS('writeFile', 'test.mp4', await fetchFile(video));
 
